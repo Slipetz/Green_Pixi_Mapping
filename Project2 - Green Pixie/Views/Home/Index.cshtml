@@ -1,0 +1,171 @@
+﻿<div class="col-md-2 full-height sidepanel">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="text-center">Currently Viewing: </h4>
+            <select id="optionDropDown" class="text-center">
+                <option value="GreenP">Green P</option>
+                <option value="Bixi">Bixi Bike</option>
+                <option value="Both">Both</option>
+            </select>
+            <button type="button" class="btn btn-info" id="refreshButton" style="display: block; margin: 5px auto;">Refresh</button>
+        </div>
+        <div class="col-md-12" id="sideBar">
+            <h3 class="text-center" id="sidebarTitle"></h3>
+            <ul id="sidebarList">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-10 map-height">
+    <div id="BingMap" class="bingMaps">
+
+    </div>
+</div>
+
+<div class="modal fade" id="WelcomeModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Welcome to Green Pixi - Parking Planner for Toronto</h4>
+            </div>
+            <div class="modal-body">
+                <p>Visiting Toronto and need to know where to park and what's around that lot?</p>
+                <p>You've found the right place! See Green P Lots and Bixi Bike Stations - And What's Around Them!</p>
+                <p>Start with what you're looking for!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="LoadGreenPLots()">Green P Lots</button>
+                <button type="button" class="btn btn-info" onclick="LoadBixieLots()">Bixi Parking</button>
+                <button type="button" class="btn btn-info" onclick="LoadBothLots()">Green P and Bixi</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="BixieModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Bixi Bike - Location Information</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="" id="BixiLat" />
+                <input type="hidden" value="" id="BixiLong" />
+                <p id="bixieStationID"></p>
+                <p id="bixieStationName"></p>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Available Bixi Bikes</th>
+                        <th>Available Docks</th>
+                        <th>Total Docks</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th id="bixieAvailableBikes"></th>
+                        <th id="bixieAvailableDocks"></th>
+                        <th id="bixieTotalDocks"></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="bixiRestaurants">Find Nearby Bars and Restaurants</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="GreenPModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Green P Lot Information</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" value="" id="GreenPLat"/>
+                <input type="hidden" value="" id="GreenPLong"/>
+                <p id="GreenPLotID"></p>
+                <p id="GreenPLotAddress"></p>
+                <p id="GreenPTTCLot"></p>
+                <p id="GreenPParkingType"></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Payment Options</th>
+                            </tr>
+                            </thead>
+                            <tbody id="GreenPPaymentOptions">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Payment Methods</th>
+                            </tr>
+                            </thead>
+                            <tbody id="GreenPPaymentMethods"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                    <tr id="GreenPRatePerHalfHour">
+                    </tr>
+                    <tr>
+                        <th>Rate Times</th>
+                        <th>Rates</th>
+                    </tr>
+                    </thead>
+                    <tbody id="GreenPRates"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="greenPRestaurants">Find Nearby Bars and Restaurants</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="FoodModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nearby Bars and Restaurants - Location Information</h4>
+            </div>
+            <div class="modal-body">
+                <p id="foodName"></p>
+                <p id="foodAddress"></p>
+                <p id="foodTel"></p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody id="foodHours">
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts
+{
+    @Scripts.Render("~/Scripts/Map.js")
+    @Scripts.Render("~/Scripts/Pins.js")
+    <script type="application/json" id="GreenPJSON">
+
+    </script>
+}
